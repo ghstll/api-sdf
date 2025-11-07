@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDocenteRequest;
 use Illuminate\Http\Request;
 use App\Models\Docente;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -56,6 +55,7 @@ class DocenteController extends Controller
    * Show the form for editing the specified resource.
    */
   public function edit(string $id,Docente $docenteParam){
+    
   }
   /**
    * Update the specified resource in storage.
@@ -81,5 +81,19 @@ class DocenteController extends Controller
     if(!$docente) return response()->json(["message" => "No se encontro el docente"],404);
     $docente->delete();
     return response()->json(["message" => "Docente eliminado con exito"],200);
+  }
+  public function loginDocente(Request $request)
+  {
+    $email = $request->input("email");
+    $password = $request->input("password");
+    if(!$email || !$password) return response()->json(["message" => "Debes ingresar correo y contraseña"]);
+    $docente = Docente::where('email',$email)->first();
+    if(!$docente) return response()->json(["message" => "Email no asociado a ningun docente"]);
+    if(!Hash::check($password,$docente->password)) return response()->json(["message" => "Email o Contraseña Incorrectos"]);
+    return response()->json(["message" => "bienvenido"]);
+
+    //hasta aqui el metodo autentifica la contraseña 
+    //falta ver que debe hacer despues para poder acceseso al frotend 
+
   }
 }

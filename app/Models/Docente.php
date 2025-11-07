@@ -12,7 +12,7 @@ class Docente extends Model{
     'nombre',
     'email',
     'telefono',
+    'password'
   ];
   protected $guarded = ['id','is_admin'];
-  protected $hidden = ['password'];
 }
