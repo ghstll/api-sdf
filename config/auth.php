@@ -36,10 +36,14 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+      'docentes' => [
+        'driver' => 'session',
+        'provider' => 'docentes'
+      ],
+      'web' => [
+          'driver' => 'session',
+          'provider' => 'users',
+      ],
     ],
 
     /*
@@ -60,15 +64,21 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+      'docentes' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Docente::class
+      ] 
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => env('AUTH_MODEL', App\Models\User::class),
+        // ],
 
+        
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
     ],
 
     /*

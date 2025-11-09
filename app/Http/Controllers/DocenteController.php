@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreDocenteRequest;
-use Illuminate\Http\Request;
 use App\Models\Docente;
 use Illuminate\Support\Facades\Hash;
-
-
-
-// TODO
-//   GETALL - DONE (INDEX)
-//   GETBYID - DONE (SHOW)
-//   CREATE - DONE (STORE)
-//   UPDATE - (EDIT)
-//   DELETE -   (DESTROY)
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class DocenteController extends Controller
 {
@@ -39,7 +32,7 @@ class DocenteController extends Controller
     $docente = Docente::create($validated);
     return response()->json([
       'message' => 'Docente creado con exito',
-      'entidad' => $docente 
+      'entidad' => $docente
     ]);
   }
   /**
@@ -49,13 +42,11 @@ class DocenteController extends Controller
     $docente = Docente::find($id);
     if(!$docente) return response()->json(["message" => "No se encontro el docente"]);
     return response()->json($docente);
-  } 
-
+  }
   /**
    * Show the form for editing the specified resource.
    */
   public function edit(string $id,Docente $docenteParam){
-    
   }
   /**
    * Update the specified resource in storage.
@@ -82,18 +73,23 @@ class DocenteController extends Controller
     $docente->delete();
     return response()->json(["message" => "Docente eliminado con exito"],200);
   }
-  public function loginDocente(Request $request)
-  {
-    $email = $request->input("email");
-    $password = $request->input("password");
-    if(!$email || !$password) return response()->json(["message" => "Debes ingresar correo y contraseña"]);
-    $docente = Docente::where('email',$email)->first();
-    if(!$docente) return response()->json(["message" => "Email no asociado a ningun docente"]);
-    if(!Hash::check($password,$docente->password)) return response()->json(["message" => "Email o Contraseña Incorrectos"]);
-    return response()->json(["message" => "bienvenido"]);
+  public function loginDocente(Request $request){
+    // $email = $request->input("email");
+    // $password = $request->input("password");
+    // if(!$email || !$password) return response()->json(["message" => "Debes ingresar correo y contraseña"]); 
+    // $docente = Docente::where('email',$email)->first();
+    // if(!$docente) return response()->json(["message" => "Email no asociado a ningun docente"]);
+    // if(!Hash::check($password,$docente->password)) return response()->json(["message" => "Email o Contraseña Incorrectos"]);
+    // session(['docente_id' => $docente->id]);
+    // return response()->json(["message" => "bienvenido"]);
 
-    //hasta aqui el metodo autentifica la contraseña 
-    //falta ver que debe hacer despues para poder acceseso al frotend 
+    // Con Auth ya se aplican las reglas de arriba
 
+    $credentials = $request->only('email','password'); // del request obtenemos los campos email y password 
+    // return response()->json(["crendentials" => $credentials]);
+    if(Auth::guard('docentes')->attempt($credentials)){ // en caso de que la autentificacion sea valida con las credenciales
+      $docente = Auth::guard('docentes')->user(); // obtener el usuario que se acaba de autentificar
+      $token = $request->user()->createToken('');
+    }
   }
 }
