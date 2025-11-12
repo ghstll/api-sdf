@@ -12,8 +12,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Run the database seeders.
      */
-    public function run(): void
-    {
+    public function run(): void{
         $this->call([
             DocenteSeeder::class,
         ]);

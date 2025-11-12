@@ -8,6 +8,6 @@ class DocenteSeeder extends Seeder{
    * Run the database seeds.
    */
   public function run(): void{
-    Docente::factory(10)->create();
+    Docente::factory(5)->create();
   }
 }

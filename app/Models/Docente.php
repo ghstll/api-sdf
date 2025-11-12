@@ -13,7 +13,7 @@ class Docente extends Authenticatable{
     'nombre',
     'email',
     'telefono',
-    'password'
   ];
-  protected $guarded = ['id','is_admin'];
+  // protected $guarded = ['id','is_admin'];
+  protected $hidden = ['password'];
 }

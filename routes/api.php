@@ -3,12 +3,13 @@
 use App\Http\Controllers\DocenteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// /api/
+
 
 
 Route::prefix('/login')->group(function(){
   Route::get("/docente",[DocenteController::class,'loginDocente']);
 });
-
 Route::prefix('/docentes')->group(function(){
   Route::get('',[DocenteController::class,'index']); //GET ALL DOCENTES
   Route::get('{id}',[DocenteController::class,'show']); // GET DOCENTE BY ID
@@ -17,11 +18,10 @@ Route::prefix('/docentes')->group(function(){
   Route::delete('{id}',[DocenteController::class,'destroy']); // DELETE DOCENTE
   Route::post('/login',[DocenteController::class,'LoginDocente']); //LOGIN DOCENTE
 });
-
-
 Route::prefix('/alumnos')->group(function(){
   // Insertar aqui las rutas de alumnos 
   // PENDIENTE:
   // CREAR CONTROLLER Y MODEL PARA EL ALUMNO
-  //SI QUIERES PUEDEN 
+  //
+
 });
