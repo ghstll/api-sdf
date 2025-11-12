@@ -69,7 +69,8 @@ class DocenteController extends Controller
    */
   public function destroy(string $id){
     $docente = Docente::find($id);
-    if(!$docente) return response()->json(["message" => "No se encontro el docente"],404);
+    
+    if(!$docente) return response()->json([],404);
     $docente->delete();
     return response()->json(["message" => "Docente eliminado con exito"],200);
   }
@@ -84,12 +85,5 @@ class DocenteController extends Controller
     // return response()->json(["message" => "bienvenido"]);
 
     // Con Auth ya se aplican las reglas de arriba
-
-    $credentials = $request->only('email','password'); // del request obtenemos los campos email y password 
-    // return response()->json(["crendentials" => $credentials]);
-    if(Auth::guard('docentes')->attempt($credentials)){ // en caso de que la autentificacion sea valida con las credenciales
-      $docente = Auth::guard('docentes')->user(); // obtener el usuario que se acaba de autentificar
-      $token = $request->user()->createToken('');
-    }
   }
 }
