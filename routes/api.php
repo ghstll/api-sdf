@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\AlumnoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // /api/
 Route::prefix('/login')->group(function(){
   Route::get("/docente",[DocenteController::class,'loginDocente']);
+  Route::get("/alumno",[AlumnoController::class,'loginAlumno']);
 });
 Route::prefix('/docentes')->group(function(){
   Route::get('',[DocenteController::class,'index']); //GET ALL DOCENTES
@@ -15,27 +17,11 @@ Route::prefix('/docentes')->group(function(){
   Route::delete('{id}',[DocenteController::class,'destroy']); // DELETE DOCENTE
   Route::post('/login',[DocenteController::class,'LoginDocente']); //LOGIN DOCENTE
 });
-
-Route::prefix('/grupos')->group(function(){
-  //rutas para los grupos
-});
-Route::prefix('/actividades')->group(function(){
-// rutas para las actividades
-  // TODO
-  // crear actividad
-  // get actividades
-  // get actividad por id
-  // actualizar actividad
-  // eliminar actividad
-});
-Route::prefix('/preguntas')->group(function(){
-  //rutas para las preguntas
-  // TODO
-  // traer preguntas todas las preguntas de una actividad (por id de actividad)
-  // eliminar todas las preguntas de una actividad 
-});
-Route::prefix('/respuestas')->group(function(){
-  // rutas para las respuestas
-});
 Route::prefix('/alumnos')->group(function(){
+  Route::get('',[AlumnoController::class,'index']); //GET ALL ALUMNOS
+  Route::get('{id}',[AlumnoController::class,'show']); // GET ALUMNO BY ID
+  Route::post('',[AlumnoController::class,'store']); // CREATE A NEW ALUMNO
+  Route::put('{id}',[AlumnoController::class,'update']); //UPDATE ALUMNO
+  Route::delete('{id}',[AlumnoController::class,'destroy']); // DELETE ALUMNO
+  Route::post('/login',[AlumnoController::class,'LoginAlumno']); //LOGIN ALUMNO
 });
