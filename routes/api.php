@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\AlumnoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // /api/
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/login')->group(function(){
   Route::get("/docente",[DocenteController::class,'loginDocente']);
+  Route::get("/alumno",[AlumnoController::class,'loginAlumno']);
 });
 Route::prefix('/docentes')->group(function(){
   Route::get('',[DocenteController::class,'index']); //GET ALL DOCENTES
@@ -19,9 +21,10 @@ Route::prefix('/docentes')->group(function(){
   Route::post('/login',[DocenteController::class,'LoginDocente']); //LOGIN DOCENTE
 });
 Route::prefix('/alumnos')->group(function(){
-  // Insertar aqui las rutas de alumnos 
-  // PENDIENTE:
-  // CREAR CONTROLLER Y MODEL PARA EL ALUMNO
-  //
-
+  Route::get('',[AlumnoController::class,'index']); //GET ALL ALUMNOS
+  Route::get('{id}',[AlumnoController::class,'show']); // GET ALUMNO BY ID
+  Route::post('',[AlumnoController::class,'store']); // CREATE A NEW ALUMNO
+  Route::put('{id}',[AlumnoController::class,'update']); //UPDATE ALUMNO
+  Route::delete('{id}',[AlumnoController::class,'destroy']); // DELETE ALUMNO
+  Route::post('/login',[AlumnoController::class,'LoginAlumno']); //LOGIN ALUMNO
 });
