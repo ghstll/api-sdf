@@ -5,9 +5,6 @@ use App\Http\Controllers\AlumnoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // /api/
-
-
-
 Route::prefix('/login')->group(function(){
   Route::get("/docente",[DocenteController::class,'loginDocente']);
   Route::get("/alumno",[AlumnoController::class,'loginAlumno']);
