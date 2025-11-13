@@ -20,7 +20,8 @@ class StoreDocenteRequest extends FormRequest{
    */
   public function rules():array{ 
     return [
-      'nombre' => 'sometimes|string',
+      'nombre' => 'sometimes|string', // cuando se valide la request el sometimes lo que hace es
+                                      //validarlo , unicamente si se encuentra en el cuerpo de la request
       'email' => 'sometimes|string|email|unique:docentes',
       'telefono' => 'sometimes|string|min:10|max:10',
       'password' => 'sometimes|string|min:8'

@@ -8,7 +8,7 @@ use App\Models\Actividad;
 use App\Models\Respuesta;
 class Pregunta extends Model{ 
   protected $fillable = ['actividad_id','enunciado'];
-  public function actividad(){
+  public function actividad(){  
     return $this->belongsTo(Actividad::class);
   }
   public function respuestas(){

@@ -17,7 +17,10 @@ class Alumno extends Authenticatable
         'nombre',
         'email',
         'telefono',
+        'password'
     ];
-    
-    protected $hidden = ['password'];
+    public function grupo(){
+      return $this->belongsTo(Grupo::class);
+    }
+    // protected $hidden = ['password'];
 }

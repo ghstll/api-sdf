@@ -10,5 +10,9 @@ class Actividad extends Model
     return $this->hasMany(Pregunta::class);  
   }
   protected $table = "actividades";
-  protected $fillable = [];
+  protected $fillable = [
+    "docente_id",
+    "titulo",
+    "descripcion"
+  ];
 }
