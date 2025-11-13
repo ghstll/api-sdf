@@ -15,18 +15,6 @@ class RespuestaController extends Controller
     {
         return Respuesta::all();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreRespuestaRequest $request)
     {
       $validated = $request->validated();
@@ -36,24 +24,15 @@ class RespuestaController extends Controller
         'entidad' => $respuesta
       ]);
     }
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id){
         $respuesta = Respuesta::find($id);
         if(!$respuesta) return response()->json(["message" => "No se encontro ninguna respuesta con el ID : {$id}"]);
         return response()->json($respuesta);
       }
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id){
       
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreRespuestaRequest $request, string $id)
     {
       $respuesta = Respuesta::find($id);
@@ -69,9 +48,6 @@ class RespuestaController extends Controller
       ]);
     }
   
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
       $respuesta = Respuesta::find($id);

@@ -11,7 +11,7 @@ class StorePreguntaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StorePreguntaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+          "actividad_id" => "sometimes|string",
+          "enunciado" => "sometimes|string",
         ];
     }
+    public function messages()
+        {
+          return [
+            "actividad_id.required" => "Se necesita ingresar el ID de la actividad a la que pertenece la pregunta",
+            "actividad_id.string" => "ID de actividad no valida",
+            "enunciado.required" => "Es necesario ingresar el enunciado para la pregunta",
+            "enunciado.string" => "Enunciado para la pregunta no valido"
+          ];
+        }
 }

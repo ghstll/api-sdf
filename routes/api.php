@@ -19,7 +19,6 @@ Route::prefix('/docentes')->group(function(){
   Route::post('',[DocenteController::class,'store']); // CREATE A NEW DOCENTE
   Route::put('{id}',[DocenteController::class,'update']); //UPDATE DOCENTE
   Route::delete('{id}',[DocenteController::class,'destroy']); // DELETE DOCENTE
-  Route::post('/login',[DocenteController::class,'LoginDocente']); //LOGIN DOCENTE
 });
 
 

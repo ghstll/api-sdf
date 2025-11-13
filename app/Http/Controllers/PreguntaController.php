@@ -2,63 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePreguntaRequest;
+use App\Models\Pregunta;
 use Illuminate\Http\Request;
 
-class PreguntaController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+use function Pest\Laravel\json;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+class PreguntaController extends Controller{
+  public function index(){
+      return Pregunta::all();
+  }
+  public function store(StorePreguntaRequest $request){
+      $validated = $request->validated();
+      $pregunta  = Pregunta::create($validated);
+      return response()->json(
+        ["message" => "Pregunta creada con exito",
+        "pregunta" => $pregunta
+      ]);
+  }
+  public function show(string $id){
+    $pregunta = Pregunta::find($id);
+    if(!$pregunta) return response()->json(["message" => "No se encontro ninguna "]);
+    return response($pregunta);
+  }
+  public function update(StorePreguntaRequest $request, string $id){
+    $pregunta = Pregunta::find($id);
+    if(!$pregunta) return response()->json(["message" => "No se encontro ninguna pregunta con el ID : {$id}"]);
+    $validated = $request->validated();
+    $pregunta->update($validated);
+    return response()->json(["message" => "Pregunta actualizada con exito"]);
+  }
+  public function destroy(string $id){
+    $pregunta = Pregunta::find($id);
+    if(!$pregunta) return response()->json(["message" => "No se encontro ninguna pregunta con el ID : {$id}"]);
+    $pregunta->delete();
+    return response()->json(["message"=> "Pregunta eliminada con exito"]);
+  }
+  public function obtenerPreguntasDeActividad(string $id){
+  }
 }
