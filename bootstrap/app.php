@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Middleware\JsonMiddleware;
+use App\Http\Middleware\JWTMiddleware;
+use App\Http\Middleware\JwtMiddlewareDocente;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Routing\MiddlewareNameResolver;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(JsonMiddleware::class);
+    })
+    ->withMiddleware(function (Middleware $middleware){
+      $middleware->alias([
+        'jwt-docentes' => JwtMiddlewareDocente::class,
+      ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

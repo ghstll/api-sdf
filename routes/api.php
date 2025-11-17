@@ -3,25 +3,35 @@
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthDocenteController;
 use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\RespuestaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-// /api/
-Route::prefix('/login')->group(function(){
-  Route::get("/docente",[DocenteController::class,'loginDocente']);
-  Route::get("/alumno",[AlumnoController::class,'loginAlumno']);
-});
-Route::prefix('/docentes')->group(function(){
-  Route::get('',[DocenteController::class,'index']); //GET ALL DOCENTES
-  Route::get('{id}',[DocenteController::class,'show']); // GET DOCENTE BY ID
-  Route::post('',[DocenteController::class,'store']); // CREATE A NEW DOCENTE
-  Route::put('{id}',[DocenteController::class,'update']); //UPDATE DOCENTE
-  Route::delete('{id}',[DocenteController::class,'destroy']); // DELETE DOCENTE
-});
 
 
+
+//LOGIN
+Route::post("/docente/login",[AuthDocenteController::class,'login']);
+
+// ------------------------------------------------------------------------
+
+Route::middleware(['jwt-docentes'])->group(function(){
+  Route::get('/docente/me',[AuthDocenteController::class,'me']);
+  Route::get('/docente/refresh',[AuthDocenteController::class,'refresh']);
+  Route::get('/docente/logout',[AuthDocenteController::class,'logout']);
+
+  Route::prefix('/docentes')->group(function(){
+    Route::get('',[DocenteController::class,'index']); //GET ALL DOCENTES
+    Route::get('{id}',[DocenteController::class,'show']); // GET DOCENTE BY ID
+    Route::post('',[DocenteController::class,'store']); // CREATE A NEW DOCENTE
+    Route::put('{id}',[DocenteController::class,'update']); //UPDATE DOCENTE
+    Route::delete('{id}',[DocenteController::class,'destroy']); // DELETE DOCENTE
+  });
+  
+});
 Route::prefix('/grupos')->group(function(){
   Route::get('',[GrupoController::class,'index']); 
   Route::get('{id}',[GrupoController::class,'show']); 
@@ -36,7 +46,6 @@ Route::prefix('/alumnos')->group(function(){
   Route::post('',[AlumnoController::class,'store']); // CREATE A NEW ALUMNO
   Route::put('{id}',[AlumnoController::class,'update']); //UPDATE ALUMNO
   Route::delete('{id}',[AlumnoController::class,'destroy']); // DELETE ALUMNO
-  Route::post('/login',[AlumnoController::class,'LoginAlumno']); //LOGIN ALUMNO
 });
 
 Route::prefix('/actividades')->group(function(){

@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => "docentes", //laravel utilizara este guard 
+        'passwords' => "users",
     ],
 
     /*
@@ -34,16 +34,19 @@ return [
     | Supported: "session"
     |
     */
-
     'guards' => [
       'docentes' => [
-        'driver' => 'session',
+        'driver' => 'jwt',
         'provider' => 'docentes'
       ],
-      'web' => [
-          'driver' => 'session',
-          'provider' => 'users',
+      'alumnos' =>[
+        'driver' => 'jwt',
+        'provider' => 'alumnos'
       ],
+      'admin' => [
+        'driver' => 'jwt',
+        'provider' => 'admin'
+      ]
     ],
 
     /*
@@ -62,22 +65,20 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'providers' => [
       'docentes' => [
         'driver' => 'eloquent',
         'model' => App\Models\Docente::class
+      ],
+      'alumnos' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Alumno::class
+      ],
+      'admin' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class
       ] 
-        // 'users' => [
-        //     'driver' => 'eloquent',
-        //     'model' => env('AUTH_MODEL', App\Models\User::class),
-        // ],
-
-        
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+      
 
     ],
 
