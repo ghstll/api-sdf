@@ -7,9 +7,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Docente extends Authenticatable implements JWTSubject{
+class User extends Authenticatable implements JWTSubject{
   use HasFactory,HasApiTokens;
-  protected $table = 'docentes';
+  protected $table = 'users';
   public function getJWTIdentifier(){
     return $this->getKey(); // obtiene el valor del primary key del modelo (id) 
   }
@@ -20,7 +20,8 @@ class Docente extends Authenticatable implements JWTSubject{
     'nombre',
     'email',
     'telefono',
-    'password'
+    'password',
+    'rol'
   ];
   protected $hidden = ['password'];
 }

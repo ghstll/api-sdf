@@ -32,17 +32,14 @@ class ActividadController extends Controller
         "actividad" => $actividad
       ]);
     }
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
+    public function show(string $id){
       $actividad = Actividad::find($id);
       if(!$actividad) return response()->json(["message"=> "No se encontro ninguna actividad con el ID : {$id}"]);
       return response()->json($actividad);
     }
-
     /**
      * Show the form for editing the specified resource.
      */

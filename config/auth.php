@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => "docentes", //laravel utilizara este guard 
+        'guard' => "users", //laravel utilizara este guard 
         'passwords' => "users",
     ],
 
@@ -35,17 +35,9 @@ return [
     |
     */
     'guards' => [
-      'docentes' => [
+      'users' => [
         'driver' => 'jwt',
-        'provider' => 'docentes'
-      ],
-      'alumnos' =>[
-        'driver' => 'jwt',
-        'provider' => 'alumnos'
-      ],
-      'admin' => [
-        'driver' => 'jwt',
-        'provider' => 'admin'
+        'provider' => 'users'
       ]
     ],
 
@@ -66,18 +58,10 @@ return [
     |
     */
     'providers' => [
-      'docentes' => [
+      'users' => [
         'driver' => 'eloquent',
-        'model' => App\Models\Docente::class
-      ],
-      'alumnos' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Alumno::class
-      ],
-      'admin' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Admin::class
-      ] 
+        'model' => App\Models\User::class
+      ]
       
 
     ],

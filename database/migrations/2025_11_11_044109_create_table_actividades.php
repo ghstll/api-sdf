@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('docente_id')->constrained('docentes')->onDelete('cascade');
+            $table->foreignId('docente_id')->constrained('users')->onDelete('cascade');
             $table->text('titulo')->nullable(false);
             $table->text('descripcion')->nullable(true);
             $table->timestamps();

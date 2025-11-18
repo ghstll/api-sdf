@@ -11,21 +11,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class JwtMiddlewareDocente
+class JwtMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next , ...$roles): Response
     {
         try{
-          Auth::shouldUse('docentes');
-          $docente = JWTAuth::parseToken()->authenticate();
-          if(!$docente){
-            return response()->json(["message" => "Docente no encontrado"]);
+          Auth::shouldUse('users');
+          $user = JWTAuth::parseToken()->authenticate();
+          if(!$user){
+            return response()->json(["message" => "Usuario no encontrado"]);
           } 
+          if(!empty($roles) && !in_array($user->rol,$roles)){
+            return response()->json([
+              'message' => 'Rol no autorizado'
+            ],403);
+          }
         }catch(JWTException $e){
           return response()->json(["message" => "Token no encontrado"],401);
         }

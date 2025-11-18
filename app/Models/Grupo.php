@@ -8,6 +8,6 @@ class Grupo extends Model
 {
     protected $fillable = [
       'nombre',
-      'docente_id'
+      'docente_id' // docente que esta asignado al grupo
     ];
 }
