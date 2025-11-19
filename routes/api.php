@@ -20,7 +20,6 @@ Route::middleware('jwt:docente,admin,alumno')->group(function(){
 Route::delete('user/{id}',[UserController::class,'']);
 
 
-
 Route::middleware('jwt:admin')->prefix('users')->group(function(){
   Route::get('',[UserController::class,'index']);
   Route::get('{id}',[UserController::class,'show']);

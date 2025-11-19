@@ -22,7 +22,8 @@ class UserFactory extends Factory{
       'email' => fake()->unique()->safeEmail(),
       'telefono' => fake()->unique()->numerify('##########'),
       'password' => Hash::make(fake()->password()),
-      'rol' => fake()->randomElement(RolUsuario::cases())->value
+      // 'rol' => fake()->randomElement(RolUsuario::cases())->value
+      'rol' => 'docente'
     ];
   } 
 }
