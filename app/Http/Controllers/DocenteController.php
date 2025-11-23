@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Models\Grupo;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class DocenteController extends Controller{
-  public function get_by_id(string $id){
-    $user =  User::where('rol','docente')
-                  ->where('id',$id)
-                  ->first();
-    if(!$user) return response()->json(["message" => "No se encontro el docente con el ID {$id}"],404);
-    return response()->json($user,200);
+
+  public function obtenerGruposDeDocente(string $id){
+    $grupos = Grupo::where('docente_id',$id)->get();
+    if(!$grupos) return response()->json(["message" => "No tienes grupos asignados todavia."],404);  
+    return response()->json($grupos);
   }
-  public function index(){
-    return User::where('rol','=','docente')->get();
-  }
+  
 }

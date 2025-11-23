@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grupo extends Model
 {
-    protected $fillable = [
-      'nombre',
-      'docente_id' // docente que esta asignado al grupo
-    ];
+  protected $table = 'grupos';
+
+  protected $fillable = [
+    'nombre',
+    'docente_id' // docente que esta asignado al grupo
+  ];
 }
