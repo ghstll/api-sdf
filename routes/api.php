@@ -59,6 +59,7 @@ Route::prefix('grupos')->group(function(){
 Route::prefix('actividades')->group(function(){
   Route::post('',[ActividadController::class,'store']);
   Route::get('',[ActividadController::class,'index']);
+  Route::get('docente/{docente_id}',[ActividadController::class,'getByDocenteId']);
   Route::get('{id}',[ActividadController::class,'show']);
   Route::put('{id}',[ActividadController::class,'update']);
   Route::delete('{id}',[ActividadController::class,'delete']);

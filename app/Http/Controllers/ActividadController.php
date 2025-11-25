@@ -54,4 +54,20 @@ class ActividadController extends Controller
       $actividade = Grupo::find($id)->actividades;
     }
     
+    // Obtener actividades por ID de docente
+    public function getByDocenteId(string $docente_id){
+      $actividades = Actividad::where('docente_id', $docente_id)->get();
+      
+      if($actividades->isEmpty()) {
+        return response()->json([
+          "message" => "No se encontraron actividades para el docente con ID: {$docente_id}",
+          "data" => []
+        ], 200);
+      }
+      
+      return response()->json([
+        "message" => "Actividades obtenidas con éxito",
+        "data" => $actividades
+      ], 200);
+    }
 }
