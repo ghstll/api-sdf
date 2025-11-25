@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreActividadRequest;
 use App\Models\Actividad;
+use App\Models\ActividadesGrupo;
+use App\Models\Grupo;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller
@@ -12,18 +14,7 @@ class ActividadController extends Controller
     {
         return Actividad::all();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(StoreActividadRequest $request){
       $validated = $request->validated();
       $actividad = Actividad::create($validated);
@@ -32,25 +23,13 @@ class ActividadController extends Controller
         "actividad" => $actividad
       ]);
     }
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id){
       $actividad = Actividad::find($id);
       if(!$actividad) return response()->json(["message"=> "No se encontro ninguna actividad con el ID : {$id}"]);
       return response()->json($actividad);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(StoreActividadRequest $request, string $id){
       $actividad = Actividad::find($id);
       if(!$actividad) return response()->json(["message"=> "No se encontro ninguna actividad con el ID : {$id}"]);
@@ -61,10 +40,7 @@ class ActividadController extends Controller
         "message" => "Actividad actualizada con exito",
       ]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+  
     public function destroy(string $id)
     {
       $actividad = Actividad::find($id);
@@ -72,4 +48,10 @@ class ActividadController extends Controller
       $actividad->delete();
       return response()->json(["message" => "Actividad eliminada con exito"]);
     }
+
+    //el id es el id del grupo
+    public function actividadesGrupo(string $id){
+      $actividade = Grupo::find($id)->actividades;
+    }
+    
 }

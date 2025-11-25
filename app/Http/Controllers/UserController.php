@@ -11,8 +11,8 @@ class UserController extends Controller{
   
   public function index(Request $request){
     $rol = $request->query('rol');
-    if(!$rol || $rol == "") return User::all();
-    return User::where('rol',$rol)->get();
+    if(!$rol || $rol == "") return User::select('id','nombre','email','telefono','rol','created_at','updated_at')->get();
+    return User::where('rol',$rol)->select('id','nombre','email','telefono','rol','created_at','updated_at')->get();
   }
   public function store(StoreUserRequest $request){
     $validated = $request->validated();
@@ -23,13 +23,12 @@ class UserController extends Controller{
       'user' => $user
     ]);
   }
-  
   public function show(string $id){
     $user = User::find($id);
     if(!$user) return response()->json(["message" => "No se encontro el usuario con el id {$id}"],404);
     return response()->json($user);
   }
-
+  
   public function update(StoreUserRequest $request, string $id){
     $user = User::find($id);
     if(!$user){
@@ -46,7 +45,7 @@ class UserController extends Controller{
       "after_update" => $user
     ],200);
   }
- 
+
   public function destroy(string $id){
     $user = User::find($id);
     if(!$user) return response()->json(["message" => "No se encontro el usuario con el id {$id}"],404);

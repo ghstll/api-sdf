@@ -1,9 +1,15 @@
 <?php
+
+use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\GrupoController;
+use App\Http\Controllers\PreguntaController;
+use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\UserController;
+use App\Models\Pregunta;
+use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Route;
 //Auth
 //Estas rutas seran publicas y no estan protegidas por ningun middleware
@@ -33,7 +39,6 @@ Route::middleware('jwt:admin')->group(function(){
   //mas comodamente y no tener que autentificarse cada vez 
   // que queramos usar una ruta
 });
-
 Route::prefix('users')->group(function(){
   
   //Esta ruta recibe un query param : rol
@@ -57,7 +62,30 @@ Route::prefix('grupos')->group(function(){
   Route::patch('asignardocente',[GrupoController::class,'asignarDocenteAGrupo']); // Esta ruta recibira un request body {grupo_id ,docente_id}
 });
 
+Route::prefix('actividades')->group(function(){
+  Route::post('',[ActividadController::class,'store']);
+  Route::get('',[ActividadController::class,'index']);
+  Route::get('{id}',[ActividadController::class,'show']);
+  Route::put('{id}',[ActividadController::class,'update']);
+  Route::delete('{id}',[ActividadController::class,'delete']);
+  Route::get('/grupo/{id}',[ActividadController::class,'actividadesGrupo']);
+});
 
+Route::prefix('respuestas')->group(function(){
+  Route::get('',[RespuestaController::class,'index']);
+});
+Route::prefix('preguntas')->group(function(){
+  Route::post('',[PreguntaController::class,'create']);
+  Route::get('',[PreguntaController::class,'index']);
+  Route::get('{id}',[PreguntaController::class,'show']);
+  Route::put('{id}',[PreguntaController::class,'update']);
+  Route::delete('{id}',[PreguntaController::class,'delete']);
+  Route::get('actividad/{actividad_id}',[PreguntaController::class,'getPreguntasActividad']);
+});
+
+Route::prefix('alumnos_progresos')->group(function(){
+
+});
 //Este grupo de rutas estaran protegidos por el middleware jwt (definidio en el archivo JwtMiddleware.php) al cual
 // se le pasa como argumento un rol, ese rol sera 'admin', por lo que solo los usuarios que tengan el rol
 //admin podran usar los endpoints dentros de la agrupacion

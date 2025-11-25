@@ -21,7 +21,12 @@ class User extends Authenticatable implements JWTSubject{
     'email',
     'telefono',
     'password',
-    'rol'
+    'rol',
+    'img_url'
   ];
   protected $hidden = ['password'];
+  protected $dateFormat = "d/m/Y H:i:s";
+  protected function serializeDate(\DateTimeInterface $date){
+    return $date->format('d/m/Y H:i:s');
+  }
 }

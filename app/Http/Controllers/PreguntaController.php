@@ -38,6 +38,9 @@ class PreguntaController extends Controller{
     $pregunta->delete();
     return response()->json(["message"=> "Pregunta eliminada con exito"]);
   }
-  public function obtenerPreguntasDeActividad(string $id){
+
+  //el id es
+  public function getPreguntasActividad(string $actividad_id){
+    return Pregunta::where("actividad_id",$actividad_id)->get();
   }
 }
