@@ -6,6 +6,7 @@ use App\Http\Middleware\JwtMiddlewareDocente;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Routing\MiddlewareNameResolver;
 
 
@@ -17,8 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->append(JsonMiddleware::class);
-    })
+      $middleware->append(JsonMiddleware::class);
+    })  
     ->withMiddleware(function (Middleware $middleware){
       $middleware->alias([
         'jwt' => JWTMiddleware::class,

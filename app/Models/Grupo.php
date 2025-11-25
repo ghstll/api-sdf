@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grupo extends Model
 {
-
+  
   public function actividades(){
   }
   protected $table = 'grupos';

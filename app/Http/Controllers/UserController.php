@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
@@ -22,6 +21,11 @@ class UserController extends Controller{
       'message' => 'Usuario creado con exito',
       'user' => $user
     ]);
+  }
+  
+  
+  public function ola(){
+    return response()->json("hola");
   }
   public function show(string $id){
     $user = User::find($id);

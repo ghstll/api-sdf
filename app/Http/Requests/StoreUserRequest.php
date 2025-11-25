@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest{
@@ -26,6 +24,7 @@ class StoreUserRequest extends FormRequest{
       'telefono' => 'required|string|min:10|max:10',
       'password' => 'required|string|min:8',
       'rol' => 'required|string',
+      'img_url' => 'sometimes|string'
     ];
   }
   public function messages() : array{
@@ -43,7 +42,8 @@ class StoreUserRequest extends FormRequest{
       'password.required' => 'Contraseña no valida',
       'password.string' => 'Contraseña no valida',
       'rol.required' => 'Rol requerido',
-      'rol.string' => 'Rol invalido'
+      'rol.string' => 'Rol invalido',
+      'img_url' => 'Img requerida'
     ];
   }
 }
