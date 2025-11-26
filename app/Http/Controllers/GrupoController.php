@@ -96,5 +96,11 @@ class GrupoController extends Controller{
       $grupo->save();
       return response()->json(["message" => "Docente removido del grupo con exito"],200);
     }
-    
+    public function gruposDeDocente(string $docente_id){
+      $grupos = Grupo::where('docente_id',$docente_id)->get();
+      if(count($grupos) == 0){
+        return response()->json(["message" => "Este docente no tiene grupos asignados"],404);
+      }
+      return response()->json($grupos);
+    }
 }

@@ -48,23 +48,25 @@ class ActividadController extends Controller
       $actividad->delete();
       return response()->json(["message" => "Actividad eliminada con exito"]);
     }
+    
+    
 
     //el id es el id del grupo
-    public function actividadesGrupo(string $id){
-      $actividade = Grupo::find($id)->actividades;
+    public function actividadesGrupo(string $docente_id){
+      $grupo = Grupo::find($docente_id);
+      if(!$grupo) return response()->json(["message" => "No se encontro grupo de ID {$docente_id}",404]);
+      return $grupo->actividades_grupo;
     }
     
     // Obtener actividades por ID de docente
     public function getByDocenteId(string $docente_id){
       $actividades = Actividad::where('docente_id', $docente_id)->get();
-      
       if($actividades->isEmpty()) {
         return response()->json([
           "message" => "No se encontraron actividades para el docente con ID: {$docente_id}",
           "data" => []
         ], 200);
       }
-      
       return response()->json([
         "message" => "Actividades obtenidas con éxito",
         "data" => $actividades
