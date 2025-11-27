@@ -8,6 +8,7 @@ use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\ActividadesGrupoController;
+use App\Models\Respuesta;
 
 //Auth
 //Estas rutas seran publicas y no estan protegidas por ningun middleware
@@ -37,6 +38,8 @@ Route::middleware('jwt:admin')->group(function(){
 });
 
 
+//todos los endpoints testeados
+
 Route::prefix("users")->group(function(){
   //Esta ruta recibe un query param : rol
   //Ejemplo como pasar el query param en la ruta:
@@ -48,6 +51,7 @@ Route::prefix("users")->group(function(){
   Route::delete('{id}',[UserController::class,'destroy']); // Delete user by id
 });
 
+// todas los endpoints testeados
 Route::prefix('grupos')->group(function(){  
   Route::get('',[GrupoController::class,'index']);
   Route::get('{id}',[GrupoController::class,'show']);
@@ -58,7 +62,6 @@ Route::prefix('grupos')->group(function(){
   Route::patch('asignardocente',[GrupoController::class,'asignarDocenteAGrupo']); // Esta ruta recibira un request body {grupo_id ,docente_id}
   Route::get('docente/{docente_id}',[GrupoController::class,'gruposDeDocente']); // Regresa los grupos que estan asignados al docente (Pasandole el ID del docente)
 });
-
 Route::prefix('actividades')->group(function(){
   Route::post('',[ActividadController::class,'store']);
   Route::get('',[ActividadController::class,'index']);
@@ -71,9 +74,10 @@ Route::prefix('actividades')->group(function(){
 
 Route::prefix('respuestas')->group(function(){
   Route::get('',[RespuestaController::class,'index']);
+  Route::get('get_respuestas_actividad',[RespuestaController::class,'']);
 });
 Route::prefix('preguntas')->group(function(){
-  Route::post('',[PreguntaController::class,'create']);
+  Route::post('',[PreguntaController::class,'create']); //CREAR UNA PREGUNTA ASIGNADA A UNA ACTIVIDAD
   Route::get('',[PreguntaController::class,'index']);
   Route::get('{id}',[PreguntaController::class,'show']);
   Route::put('{id}',[PreguntaController::class,'update']);
