@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
       $middleware->append(JsonMiddleware::class);
+      // Habilitar CORS para todas las rutas API
+      $middleware->api(prepend: [
+        \Illuminate\Http\Middleware\HandleCors::class,
+      ]);
     })  
     ->withMiddleware(function (Middleware $middleware){
       $middleware->alias([
