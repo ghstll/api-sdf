@@ -22,8 +22,8 @@ class StoreGrupoRequest extends FormRequest
     public function rules(): array
     {
         return [
-          "nombre" => "sometimes|string|max:3|unique:grupos",
-          "docente_id" => "sometimes|string"
+          "nombre" => "required|string|max:3|unique:grupos",
+          "docente_id" => "nullable|integer|unique:grupos"
         ];
     }
     public function messages():array{
@@ -31,9 +31,9 @@ class StoreGrupoRequest extends FormRequest
         "nombre.required" => "Nombre no valido",
         "nombre.string" => "Nombre no valido",
         "nombre.max" => "El nombre debe tener como maximo 3 caracteres",
-        "nombre.unique" => "Ya existe ese nombre de grupo en la tabla Grupos",
-        "docente_id.required" => "ID no valida",        
-        "docente_id.string" => "La ID debe pasarse como string",
+        "nombre.unique" => "Ya existe un grupo con ese nombre, intenta con otro.",
+        "docente_id.unique" => "El docente ya pertenece a un grupo.",
+        "docente_id.integer" => "Id del docente no valido."
       ];
     }
 }

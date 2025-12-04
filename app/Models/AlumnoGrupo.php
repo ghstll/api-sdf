@@ -5,7 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class AlumnoGrupo extends Model{
+  
   protected $table = "alumnos_grupos";
+  public function user(){
+    return $this->belongsTo(User::class);
+  }
+  public function grupo(){
+    
+  }
   protected $fillable = [
     "alumno_id",
     "grupo_id"

@@ -21,7 +21,7 @@ class RespuestaController extends Controller
       $respuesta = Respuesta::create($validated);
       return response()->json([
         'message' => 'Respuesta creada con exito',
-        'entidad' => $respuesta
+        'respuesta' => $respuesta
       ]);
     }
     public function show(string $id){

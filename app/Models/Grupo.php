@@ -18,11 +18,8 @@ class Grupo extends Model
                         //JOIN ACTIVIDADES_GRUPO ON ACTIVIDADES.ID = ACTIVIDADES_GRUPO.ACTIVIDAD_ID
                         //WHERE ACTIVIDADES_GRUPO.GRUPO_ID = 1
   }
-  public function funcion(){
-    
-  }
   protected $table = 'grupos';
-
+  
   protected $fillable = [
     'nombre',
     'docente_id' // docente que esta asignado al grupo

@@ -21,7 +21,7 @@ class StoreUserRequest extends FormRequest{
       'nombre' => 'required|string', // cuando se valide la request el required lo que hace es
                                       //validarlo , unicamente si se encuentra en el cuerpo de la request
       'email' => 'required|string|email|unique:users',
-      'telefono' => 'required|string|min:10|max:10',
+      'telefono' => 'required|string|min:10|max:10|unique:users',
       'password' => 'required|string|min:8',
       'rol' => 'required|string',
       'img_url' => 'sometimes|string'
@@ -38,6 +38,7 @@ class StoreUserRequest extends FormRequest{
       'telefono.required' => 'Telefono no valido',
       'telefono.min' => 'El numero de telefono debe tener 10 caracteres',
       'telefono.max' => 'El numero de telefono debe tener 10 caracteres',
+      'telefono.unique' => 'Este numero de telefono ya esta siendo utilizado',
       'password.min' => 'La contraseña debe tene  r al menos 8 caracteres',
       'password.required' => 'Contraseña no valida',
       'password.string' => 'Contraseña no valida',

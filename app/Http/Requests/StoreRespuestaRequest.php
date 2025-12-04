@@ -11,7 +11,7 @@ class StoreRespuestaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,16 +22,16 @@ class StoreRespuestaRequest extends FormRequest
     public function rules(): array
     {
         return [
-          "pregunta_id" => "sometimes|string",
-          "texto" => "sometimes|string",
-          "es_correcta" => "sometimes|boolean"
+          "pregunta_id" => "required|integer",
+          "texto" => "required|string",
+          "es_correcta" => "required|boolean"
         ];
     }
     
     public function messages() : array{
       return [
         "pregunta_id.required" => "ID de pregunta no valida",
-        "pregunta_id.string" => "ID de pregunta no valida",
+        "pregunta_id.integer" => "ID de pregunta no valida",
         "texto.string" => "Texto de la respuesta no valida",
         "texto.required" => "Texto de respuesta no valido",
         "es_correcta.boolean" => "Este campo debe tener un tipo de dato Bool (True o False)",

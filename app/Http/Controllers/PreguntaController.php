@@ -13,12 +13,12 @@ class PreguntaController extends Controller{
       return Pregunta::all();
   }
   public function store(StorePreguntaRequest $request){
-      $validated = $request->validated();
-      $pregunta  = Pregunta::create($validated);
-      return response()->json(
-        ["message" => "Pregunta creada con exito",
-        "pregunta" => $pregunta
-      ]);
+    $validated = $request->validated();
+    $pregunta  = Pregunta::create($validated);
+    return response()->json(
+      ["message" => "Pregunta creada con exito",
+      "pregunta" => $pregunta
+    ]);
   }
   public function show(string $id){
     $pregunta = Pregunta::find($id);

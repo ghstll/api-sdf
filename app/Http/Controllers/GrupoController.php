@@ -12,8 +12,8 @@ class GrupoController extends Controller{
         return Grupo::all();
     }
 
-    public function store(Request $request){
-      $validatedData = $request->validate(["nombre" => "required|string"]);
+    public function store(StoreGrupoRequest $request){
+      $validatedData = $request->validated();
       $grupo = Grupo::create($validatedData);
       return response()->json(["message" => "Grupo creado con exito", "grupo" => $grupo]);
     }
@@ -30,7 +30,7 @@ class GrupoController extends Controller{
       if(!$grupo) return response()->json(["message" => "No se encontro ningun grupo con el ID : {$id}"]);
       $validated = $request->validated();
       $grupo->update($validated);
-      return response()->json(["message"=>"Grupo actualizado con exito."]);
+      return response()->json(["message"=>"Grupo actualizado con exito.", "grupo" => $grupo]);
     }
 
     public function destroy(string $id){
@@ -39,15 +39,6 @@ class GrupoController extends Controller{
       $grupo->delete();
       return response()->json(["message" => "Grupo eliminado con exito."]);
     }
-    public function create(Request $request){
-      $validated = $request->validate([
-        'nombre' => 'required|max:3',
-        'docente' => 'sometimes'
-      ]);
-      $grupo = Grupo::create($validated);
-      return response()->json(['message' => "Grupo creado con extio ", 'grupo' => $grupo],200);
-    }
-
     //Esta funcion va a asingarle un docente a un grupo
     //recibira como parametro
     
@@ -98,9 +89,9 @@ class GrupoController extends Controller{
     }
     public function gruposDeDocente(string $docente_id){
       $grupos = Grupo::where('docente_id',$docente_id)->get();
-      if(count($grupos) == 0){
-        return response()->json(["message" => "Este docente no tiene grupos asignados"],404);
-      }
       return response()->json($grupos);
+    }
+    public function getGupoDeAlumno(string $alumno_id){
+      
     }
 }

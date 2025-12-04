@@ -9,6 +9,7 @@ class Actividad extends Model
   public function preguntas(){
     return $this->hasMany(Pregunta::class);  
   }
+  
   protected $table = "actividades";
   protected $fillable = [
     "docente_id",

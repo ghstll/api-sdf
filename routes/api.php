@@ -8,6 +8,10 @@ use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\ActividadesGrupoController;
+use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AlumnosGrupoController;
+use App\Http\Controllers\DocenteController;
+use App\Models\Pregunta;
 use App\Models\Respuesta;
 
 //Auth
@@ -55,7 +59,7 @@ Route::prefix("users")->group(function(){
 Route::prefix('grupos')->group(function(){  
   Route::get('',[GrupoController::class,'index']);
   Route::get('{id}',[GrupoController::class,'show']);
-  Route::post('',[GrupoController::class,'create']);
+  Route::post('',[GrupoController::class,'store']);
   Route::put('{id}',[GrupoController::class,'update']);
   Route::delete('{id}',[GrupoController::class,'delete']);
   Route::patch('removerdocente/{id}',[GrupoController::class,'removerDocenteDeGrupo']);
@@ -68,28 +72,30 @@ Route::prefix('actividades')->group(function(){
   Route::get('docente/{docente_id}',[ActividadController::class,'getByDocenteId']); // traer todas las actividades que han sido creadas por un docente
   Route::get('{id}',[ActividadController::class,'show']);
   Route::put('{id}',[ActividadController::class,'update']);
-  Route::delete('{id}',[ActividadController::class,'delete']);
+  Route::delete('{id}',[ActividadController::class,'destroy']);
   Route::get('/grupo/{id}',[ActividadController::class,'actividadesGrupo']); // traer todas las actividades de un grupo
 });
 
-Route::prefix('respuestas')->group(function(){
-  Route::get('',[RespuestaController::class,'index']);
-  Route::get('get_respuestas_actividad',[RespuestaController::class,'']);
-});
 Route::prefix('preguntas')->group(function(){
-  Route::post('',[PreguntaController::class,'create']); //CREAR UNA PREGUNTA ASIGNADA A UNA ACTIVIDAD
-  Route::get('',[PreguntaController::class,'index']);
-  Route::get('{id}',[PreguntaController::class,'show']);
-  Route::put('{id}',[PreguntaController::class,'update']);
-  Route::delete('{id}',[PreguntaController::class,'delete']);
-  Route::get('actividad/{actividad_id}',[PreguntaController::class,'getPreguntasActividad']);
+  Route::post('',[PreguntaController::class,'store']);
 });
+Route::prefix('respuestas')->group(function(){
+  Route::post('',[RespuestaController::class,'store']);
+});
+
 Route::prefix('actividades_grupo')->group(function(){
   Route::get('',[ActividadesGrupoController::class,'index']);
   Route::post('',[ActividadesGrupoController::class,'store']); // asignar una actividad a un grupo
 });
-Route::prefix('alumnos_progresos')->group(function(){
-}); 
-//Este grupo de rutas estaran protegidos por el middleware jwt (definidio en el archivo JwtMiddleware.php) al cual
-// se le pasa como argumento un rol, ese rol sera 'admin', por lo que solo los usuarios que tengan el rol
-//admin podran usar los endpoints dentros de la agrupacion
+
+Route::prefix('docentes')->group(function(){
+  Route::get('docenteslibres',[DocenteController::class,'obtenerDocentesSinGrupo']); // get docentes que aun no estan asignados a ningun grupo
+});
+Route::prefix('alumnos')->group(function(){
+  Route::get('libres',[AlumnoController::class,'getAlumnosSinGrupo']);
+  Route::get('grupo/{id}',[AlumnoController::class,'getAlumnosFromGrupo']);
+  Route::get('{id}/grupo',[AlumnoController::class,'getGrupo']);
+});
+Route::prefix('alumnos_grupo')->group(function(){
+  Route::post('asignar_alumno_grupo',[AlumnosGrupoController::class,'asignarAlumnoAGrupo']);
+});

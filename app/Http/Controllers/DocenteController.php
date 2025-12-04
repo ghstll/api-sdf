@@ -14,5 +14,10 @@ class DocenteController extends Controller{
     if(!$grupos) return response()->json(["message" => "No tienes grupos asignados todavia."],404);  
     return response()->json($grupos);
   }
+
+  public function obtenerDocentesSinGrupo(){
+    $docentes_libres = User::where('rol','docente')->whereDoesntHave('grupo')->get();
+    return response()->json($docentes_libres,200);
+  }
   
 }
